@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description');
             $table->bigInteger('price');
             $table->integer('stock')->default(0);
+            $table->unsignedBigInteger('published_at')->default(now()->timestamp);
             $table->timestamps();
         });
     }

@@ -54,7 +54,7 @@ class ProductController extends Controller
             'title'         => 'required|min:5',
             'description'   => 'required|min:10',
             'price'         => 'required|numeric',
-            'stock'         => 'required|numeric'
+            'stock'         => 'required|numeric',
         ]);
 
         //upload image
@@ -67,7 +67,8 @@ class ProductController extends Controller
             'title'         => $request->title,
             'description'   => $request->description,
             'price'         => $request->price,
-            'stock'         => $request->stock
+            'stock'         => $request->stock,
+            'published_at'  => now()->timestamp,
         ]);
 
         //redirect to index

@@ -18,6 +18,7 @@
                 <th>Title</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th>Published At</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -28,6 +29,17 @@
                     <td>{{ $product->title }}</td>
                     <td>{{ "Rp" . number_format($product->price, 2, ',', '.') }}</td>
                     <td>{{ $product->stock }}</td>
+                    <td>
+                        @if ($product->published_at)
+                            {{ \Carbon\Carbon::createFromTimestamp($product->published_at->timestamp)->format('d M Y H:i') }}
+                            <br>
+                            <small>{{ \Carbon\Carbon::createFromTimestamp($product->published_at->timestamp)->diffForHumans() }}</small>
+                            <br>
+                            <small>Unix: {{ $product->published_at->timestamp }}</small>
+                        @else
+                            <small>-</small>
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('products.show', $product->id) }}">Show</a>
                         <a href="{{ route('products.edit', $product->id) }}">Edit</a>
@@ -40,7 +52,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="5">data product tidak ada.</td>
+                    <td colspan="6">data product tidak ada.</td>
                 </tr>
             @endforelse
         </tbody>
