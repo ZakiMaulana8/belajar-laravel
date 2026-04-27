@@ -54,7 +54,7 @@ class ProductController extends Controller
             'title'         => 'required|min:5',
             'description'   => 'required|min:10',
             'price'         => 'required|numeric',
-            'stock'         => 'required|numeric',
+            'stock'         => 'required|numeric'
         ]);
 
         //upload image
@@ -67,11 +67,26 @@ class ProductController extends Controller
             'title'         => $request->title,
             'description'   => $request->description,
             'price'         => $request->price,
-            'stock'         => $request->stock,
-            'published_at'  => now()->timestamp,
+            'stock'         => $request->stock
         ]);
 
         //redirect to index
         return redirect()->route('products.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
+    
+   /**
+   * show
+   *
+   * @param  mixed $id
+   * @return View
+   */
+  public function show(string $id): View
+  {
+      //get product by ID
+      $product = Product::findOrFail($id);
+
+      //render view with product
+      return view('products.show', compact('product'));
+  }
+
 }
